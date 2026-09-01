@@ -100,6 +100,7 @@
     'Copy server IP': 'Server-IP kopieren',
     'Privacy': 'Datenschutz',
     'All rights reserved.': 'Alle Rechte vorbehalten.',
+    'Pitschonix. All rights reserved.': 'Pitschonix. Alle Rechte vorbehalten.',
     'Not affiliated with Mojang Studios or Microsoft.': 'Nicht mit Mojang Studios oder Microsoft verbunden.',
     'Server address copied.': 'Serveradresse kopiert.',
     'JavaScript is disabled. You can still join with ': 'JavaScript ist deaktiviert. Du kannst trotzdem beitreten mit ',
@@ -171,6 +172,14 @@
   const apply = () => {
     document.documentElement.lang = language;
     translateTextNodes();
+    const privacyPage = /privacy\.html$/.test(location.pathname);
+    if (privacyPage) {
+      document.title = language === 'de' ? 'Datenschutz — Pitschonix' : 'Privacy — Pitschonix';
+      const description = document.querySelector('meta[name="description"]');
+      if (description) description.content = language === 'de'
+        ? 'Datenschutz- und Privatsphäre-Hinweise des Pitschonix Minecraft-Netzwerks.'
+        : 'Privacy notice for the Pitschonix Minecraft network and website.';
+    }
     document.querySelectorAll('[data-language]').forEach((button) => {
       const active = button.dataset.language === language;
       button.classList.toggle('is-active', active);
