@@ -2,6 +2,7 @@
   'use strict';
 
   const config = window.PITSCHONIX_CONFIG || {};
+  const tr = (text) => window.PNX_I18N ? window.PNX_I18N.t(text) : text;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const header = document.querySelector('[data-header]');
   const menuToggle = document.querySelector('[data-menu-toggle]');
@@ -40,9 +41,9 @@
       } else if (!fallbackCopy(value)) {
         throw new Error('Clipboard fallback failed');
       }
-      showToast(`${value} copied to your clipboard.`);
+      showToast(window.PNX_I18N?.language === 'de' ? `${value} wurde in die Zwischenablage kopiert.` : `${value} copied to your clipboard.`);
     } catch (error) {
-      showToast(`Copy failed. Server address: ${value}`, '!');
+      showToast(window.PNX_I18N?.language === 'de' ? `Kopieren fehlgeschlagen. Serveradresse: ${value}` : `Copy failed. Server address: ${value}`, '!');
     }
   };
 
@@ -118,10 +119,10 @@
       dot.dataset.state = state;
     });
     document.querySelectorAll('[data-status-label]').forEach((node) => {
-      node.textContent = label;
+      node.textContent = tr(label);
     });
     document.querySelectorAll('[data-status-detail]').forEach((node) => {
-      node.textContent = detail;
+      node.textContent = tr(detail);
     });
     document.querySelectorAll('[data-player-count]').forEach((node) => {
       node.textContent = players || '— / —';
@@ -159,8 +160,8 @@
           ? config.supportedClientRange.trim()
           : '1.8–26.2';
         const playerText = online === '—'
-          ? 'player count unavailable'
-          : `${online} player${online === 1 ? '' : 's'} online`;
+          ? (window.PNX_I18N?.language === 'de' ? 'Spielerzahl nicht verfügbar' : 'player count unavailable')
+          : (window.PNX_I18N?.language === 'de' ? `${online} Spieler online` : `${online} player${online === 1 ? '' : 's'} online`);
         setStatus({
           state: 'online',
           label: 'Server online',
@@ -211,7 +212,7 @@
     link.addEventListener('click', (event) => {
       event.preventDefault();
       const label = platform === 'x' ? 'X' : platform.charAt(0).toUpperCase() + platform.slice(1);
-      showToast(`Official ${label} link will be added soon.`, '•');
+      showToast(window.PNX_I18N?.language === 'de' ? `Der offizielle ${label}-Link wird bald ergänzt.` : `Official ${label} link will be added soon.`, '•');
     });
   });
 

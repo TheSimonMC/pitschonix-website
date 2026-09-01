@@ -1755,6 +1755,31 @@ code,
   font-size: 0.72rem;
 }
 
+.language-switch {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  background: rgba(12, 6, 20, .72);
+}
+
+.language-switch button {
+  min-width: 34px;
+  border: 0;
+  padding: 7px 8px;
+  color: var(--muted);
+  background: transparent;
+  font: 800 .68rem/1 var(--font-display);
+  letter-spacing: .08em;
+  cursor: pointer;
+}
+
+.language-switch button:hover,
+.language-switch button.is-active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+}
+
 .footer-bottom a {
   color: #aaa0b6;
   transition: color 150ms ease;
