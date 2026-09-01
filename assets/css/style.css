@@ -618,6 +618,7 @@ code,
 }
 
 .button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -632,6 +633,18 @@ code,
   transition: transform 160ms var(--ease), box-shadow 160ms var(--ease), border-color 160ms ease, background 160ms ease;
 }
 
+.button::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  opacity: 0.72;
+}
+
 .button svg {
   width: 19px;
   height: 19px;
@@ -641,7 +654,9 @@ code,
 .button--primary {
   color: #1a0c21;
   border-color: #edca00;
-  background: linear-gradient(180deg, #ffe927, #f5c900);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.34), transparent 38%),
+    linear-gradient(180deg, #ffe927, #f5c900);
   box-shadow: 0 5px 0 #8f5c00;
 }
 
@@ -658,7 +673,9 @@ code,
 .button--secondary {
   color: var(--ink);
   border-color: var(--line-strong);
-  background: rgba(17, 10, 25, 0.72);
+  background:
+    linear-gradient(135deg, rgba(169, 17, 253, 0.11), transparent 48%),
+    rgba(17, 10, 25, 0.86);
   box-shadow: 0 5px 0 #060309;
 }
 
@@ -737,10 +754,20 @@ code,
   grid-template-columns: 1fr minmax(250px, 1.55fr) 0.72fr auto;
   align-items: center;
   min-height: 128px;
-  overflow: hidden;
+  overflow: visible;
+  border-color: rgba(169, 17, 253, 0.34);
   background:
-    linear-gradient(90deg, rgba(117, 5, 237, 0.12), transparent 32%),
-    #15101d;
+    linear-gradient(90deg, rgba(117, 5, 237, 0.16), transparent 34%),
+    linear-gradient(145deg, #1b1125, #120c19);
+  box-shadow: 9px 9px 0 rgba(5, 3, 7, 0.82), 0 0 34px rgba(117, 5, 237, 0.08);
+}
+
+.server-console::before {
+  content: "";
+  position: absolute;
+  inset: -1px auto -1px -1px;
+  width: 5px;
+  background: linear-gradient(180deg, var(--magenta), var(--purple) 58%, var(--gold));
 }
 
 .server-console > * {
@@ -777,19 +804,56 @@ code,
 }
 
 .copy-chip {
-  align-self: stretch;
+  position: relative;
+  align-self: center;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 0;
-  padding-inline: 26px;
+  min-height: 58px;
+  margin: 18px 20px;
+  border: 1px solid #edca00;
+  padding-inline: 22px;
   color: #1a0c21;
-  background: var(--yellow);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.42), transparent 38%),
+    linear-gradient(180deg, #ffe927, #f5c900);
+  box-shadow: 4px 4px 0 #7f5100;
   font-size: 0.76rem;
   font-weight: 900;
+  white-space: nowrap;
   cursor: pointer;
-  transition: background 160ms ease, transform 160ms ease;
+  transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.server-console__state,
+.server-console__address,
+.server-console__players {
+  position: relative;
+}
+
+.server-console__state::after,
+.server-console__address::after,
+.server-console__players::after {
+  content: "";
+  position: absolute;
+  left: 28px;
+  bottom: 16px;
+  width: 34px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--purple), transparent);
+  opacity: 0.65;
+}
+
+.copy-chip::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 9px;
+  height: 9px;
+  border-top: 3px solid #411058;
+  border-right: 3px solid #411058;
 }
 
 .copy-chip svg {
@@ -799,11 +863,14 @@ code,
 }
 
 .copy-chip:hover {
+  transform: translateY(-2px);
   background: #fff067;
+  box-shadow: 4px 6px 0 #7f5100;
 }
 
 .copy-chip:active {
   transform: translateY(3px);
+  box-shadow: 2px 1px 0 #7f5100;
 }
 
 /* Beta notice */
@@ -1740,9 +1807,25 @@ code,
   transition: color 150ms ease;
 }
 
+.footer-links button {
+  border: 1px solid var(--line-strong);
+  padding: 7px 10px;
+  background: linear-gradient(135deg, rgba(117, 5, 237, 0.16), rgba(17, 10, 25, 0.92));
+  box-shadow: 3px 3px 0 var(--shadow);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
 .footer-links a:hover,
 .footer-links button:hover {
   color: var(--yellow);
+}
+
+.footer-links button:hover {
+  border-color: rgba(253, 224, 10, 0.5);
+  transform: translateY(-1px);
 }
 
 .footer-bottom {
@@ -1845,8 +1928,17 @@ code,
 .privacy-card {
   border: 1px solid var(--line);
   padding: clamp(24px, 4vw, 40px);
-  background: linear-gradient(145deg, rgba(33, 21, 45, 0.86), rgba(17, 10, 25, 0.86));
+  background:
+    linear-gradient(135deg, rgba(169, 17, 253, 0.08), transparent 38%),
+    linear-gradient(145deg, rgba(33, 21, 45, 0.9), rgba(17, 10, 25, 0.9));
   box-shadow: 8px 8px 0 rgba(5, 3, 7, 0.62);
+  transition: transform 180ms var(--ease), border-color 180ms ease, box-shadow 180ms var(--ease);
+}
+
+.privacy-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(169, 17, 253, 0.4);
+  box-shadow: 8px 10px 0 rgba(5, 3, 7, 0.7);
 }
 
 .privacy-card h2 {
@@ -2248,6 +2340,8 @@ code,
 
   .copy-chip {
     min-height: 56px;
+    margin: 16px 20px 20px;
+    border: 1px solid #edca00;
   }
 
   .beta-notice {
