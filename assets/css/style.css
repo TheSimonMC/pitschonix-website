@@ -2114,6 +2114,35 @@ code,
   50% { opacity: 0.48; }
 }
 
+/* Optional client integrations */
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.clients-notice {
+  padding: 25px;
+  margin-bottom: 20px;
+  border-left: 3px solid var(--gold);
+}
+
+.clients-notice p { margin-bottom: 0; }
+
+.client-card {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.client-card h3 { font-size: 1.42rem; }
+.client-card__date { margin-top: auto; font-size: 0.85rem; }
+.client-card a { color: var(--gold); text-decoration: underline; text-underline-offset: 4px; }
+
+@media (max-width: 860px) {
+  .clients-grid { grid-template-columns: 1fr; }
+}
+
 /* Responsive */
 @media (max-width: 1060px) {
   .nav-menu {
